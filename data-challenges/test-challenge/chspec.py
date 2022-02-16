@@ -17,6 +17,7 @@ def load_pack(pack_id="P-1", out_path="./pack.zip"):
 
     tmp_dir.cleanup()
 
+
 def evaluate(solution_dir, true_results):
     out = json.loads((Path(solution_dir) / "output.json").read_text())
     if out == true_results:

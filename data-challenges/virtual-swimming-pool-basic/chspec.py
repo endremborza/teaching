@@ -2,14 +2,26 @@ from pathlib import Path
 import json
 
 import boto3
+import requests
+
 
 bucket = "borza-public-data"
 subdir = "swimming-pool-packs"
 
+DEFAULT_PACK = "S-10"
+region = "eu-central-1"
 
-def load_pack(pack_id="S-10", out_path="./pack.zip"):
+
+def load_pack(pack_id=DEFAULT_PACK, out_path="./pack.zip"):
+    bpath = f"{subdir}/{pack_id}.zip"
+    if pack_id == DEFAULT_PACK:
+        headers = {"Host": f"{bucket}.s3.{region}.amazonaws.com"}
+        r = requests.get(f"/{bpath}", headers=headers)
+        Path(out_path).write_bytes(r.content)
+        return 
+
     s3_client = boto3.client("s3")
-    s3_client.download_file(bucket, f"{subdir}/{pack_id}.zip", out_path)
+    s3_client.download_file(bucket, bpath, out_path)
 
 
 def evaluate(solution_dir, true_results):
