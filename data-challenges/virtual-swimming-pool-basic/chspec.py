@@ -6,6 +6,7 @@ import boto3
 bucket = "borza-public-data"
 subdir = "swimming-pool-packs"
 
+
 def load_pack(pack_id="S-10", out_path="./pack.zip"):
     s3_client = boto3.client("s3")
     s3_client.download_file(bucket, f"{subdir}/{pack_id}.zip", out_path)
