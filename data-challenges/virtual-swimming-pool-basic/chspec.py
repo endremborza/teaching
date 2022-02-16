@@ -15,8 +15,7 @@ region = "eu-central-1"
 def load_pack(pack_id=DEFAULT_PACK, out_path="./pack.zip"):
     bpath = f"{subdir}/{pack_id}.zip"
     if pack_id == DEFAULT_PACK:
-        headers = {"Host": f"{bucket}.s3.{region}.amazonaws.com"}
-        r = requests.get(f"/{bpath}", headers=headers)
+        r = requests.get(f"https://{bucket}.s3.{region}.amazonaws.com/{bpath}")
         Path(out_path).write_bytes(r.content)
         return 
 
