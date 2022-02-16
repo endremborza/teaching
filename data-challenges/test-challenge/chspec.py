@@ -6,7 +6,7 @@ import tempfile
 
 def load_pack(pack_id="P-1", out_path="./pack.zip"):
     tmp_dir = tempfile.TemporaryDirectory()
-    res_path, in_path, d_path = [Path(tmp_dir, k) for k in ["r", "i", "d"]]
+    res_path, in_path, d_path = [Path(tmp_dir.name, k) for k in ["r", "i", "d"]]
     res_path.write_text(json.dumps({"A": 10}))
     in_path.write_text(json.dumps({"B": 10}))
     d_path.write_text(json.dumps({"C": 10}))
